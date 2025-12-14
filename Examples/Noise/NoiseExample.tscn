@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ynogtnsbxw0o"]
+
+[ext_resource type="Script" uid="uid://cl7uxr7q0s536" path="res://Examples/Noise/NoiseExample.cs" id="1_kuqpq"]
+
+[node name="NoiseExample" type="Node3D"]
+
+[node name="PlaneMesh" type="Node3D" parent="."]
+script = ExtResource("1_kuqpq")
+Resolution = 100
