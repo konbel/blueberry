@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw3i2bg7d1ls4"]
+
+[ext_resource type="Script" uid="uid://b6v6q32kovfbd" path="res://Examples/StateMachine/StateMachineExample.cs" id="1_2akfu"]
+
+[node name="StateMachineExample" type="Node3D"]
+
+[node name="StateMachineExample" type="Node" parent="."]
+script = ExtResource("1_2akfu")
+
+[node name="Node Based" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="Node Based"]
+
+[node name="State 1" type="Node" parent="Node Based/StateMachine"]
+
+[node name="State 2" type="Node" parent="Node Based/StateMachine"]

@@ -21,6 +21,19 @@ Blueberry provides a set of utilities and tools to enhance your Godot developmen
 
 ## Features
 
+### State Machine
+
+A node-based state machine system for managing game states and transitions. Features include:
+
+- **Easy Setup**: Add states as child nodes of a StateMachine node
+- **Lifecycle Management**: Automatic calling of Entry, Process, PhysicsProcess, and Exit methods
+- **Pause Support**: Pause and resume state execution
+- **State Switching**: Switch states by name, index, or reference
+- **Signal Support**: StateChanged signal emitted on transitions
+- **Input Handling**: Automatic input forwarding to the current state
+
+Create custom states by inheriting from the `State` class and override the lifecycle methods you need.
+
 ### Noise Generation
 
 Flexible noise generation system supporting 1D, 2D, and 3D noise with customizable settings and filters.
