@@ -1,0 +1,18 @@
+root = true
+
+[*]
+charset = utf-8
+
+[*.cs]
+# K&R style
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_open_brace_types = none
+csharp_new_line_before_open_brace_methods = none
+csharp_new_line_before_open_brace_properties = none
+csharp_new_line_before_open_brace_accessors = none
+csharp_new_line_before_open_brace_anonymous_methods = none
+csharp_new_line_before_open_brace_control_blocks = none
+csharp_new_line_before_open_brace_lambda_expression_bodies = none
+
+# Optional: remove extra blank lines
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer = false:suggestion
