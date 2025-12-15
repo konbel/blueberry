@@ -35,7 +35,7 @@ namespace Blueberry.Noise {
                 float v = 1 - Mathf.Abs(noiseFunction(offsetFunction(point, frequency, offset)));
                 v *= v;
                 v *= weight;
-                weight = v;
+                weight = Mathf.Clamp(v * noiseSettings.WeightMultiplier, 0, 1);
 
                 noiseValue += v * amplitude;
                 frequency *= noiseSettings.Roughness;

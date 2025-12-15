@@ -55,5 +55,11 @@ namespace Blueberry.Noise {
         /// Minimum threshold value. Noise values below this are clamped to zero.
         /// </summary>
         [Export] public float MinValue = 0;
+
+        [ExportGroup("Rigid Noise Settings")]
+        /// <summary>
+        /// Weight multiplier for rigid noise filters. Controls the intensity of ridged features.
+        /// </summary>
+        [Export] public float WeightMultiplier = 0.8f;
     }
 }

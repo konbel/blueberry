@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ynogtnsbxw0o"]
 
 [ext_resource type="Script" uid="uid://cl7uxr7q0s536" path="res://Examples/Noise/NoiseExample.cs" id="1_kuqpq"]
-[ext_resource type="Script" uid="uid://bwubhxs6pchmh" path="res://addons/blueberry/Noise/NoiseSettings2D.cs" id="2_q8ae2"]
+[ext_resource type="Script" uid="uid://bwubhxs6pchmh" path="res://addons/blueberry/Noise/NoiseSettings/NoiseSettings2D.cs" id="2_q8ae2"]
 
 [sub_resource type="Resource" id="Resource_6t0i2"]
 script = ExtResource("2_q8ae2")
