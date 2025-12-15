@@ -1,11 +1,9 @@
-using Godot;
-
 namespace Blueberry.Noise {
     /// <summary>
     /// Simple noise filter for generating 1D noise patterns.
     /// Useful for creating procedural curves, audio synthesis, or any 1-dimensional variation.
     /// </summary>
-    public partial class SimpleNoiseFilter1D : NoiseFilter {
+    public class SimpleNoiseFilter1D : SimpleNoiseFilter, NoiseFilter1D {
         private NoiseSettings1D NoiseSettings;
 
         /// <summary>
@@ -25,11 +23,6 @@ namespace Blueberry.Noise {
             NoiseSettings = noiseSettings;
         }
 
-        /// <summary>
-        /// Samples noise at the specified 1D point.
-        /// </summary>
-        /// <param name="point">The position along the 1D axis to sample.</param>
-        /// <returns>The noise value at the given point.</returns>
         public float GetNoise(float point)
             => GetNoise(point, NoiseSettings.Offset, NoiseSettings, Noise.GetNoise1D, Offset);
 
