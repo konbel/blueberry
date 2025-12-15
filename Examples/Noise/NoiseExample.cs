@@ -1,5 +1,4 @@
-using Godot;
-using Blueberry.Noise;
+using Godot; using Blueberry.Noise;
 
 [Tool]
 public partial class NoiseExample : Node3D {
@@ -24,19 +23,7 @@ public partial class NoiseExample : Node3D {
         }
 
         // Create noise instance if it doesn't exist
-        switch (Settings.Type) {
-            case NoiseSettings.FilterType.Simple:
-                NoiseFilter = new SimpleNoiseFilter2D(Settings);
-                break;
-
-            case NoiseSettings.FilterType.Rigid:
-                NoiseFilter = new RigidNoiseFilter2D(Settings);
-                break;
-
-            default:
-                GD.PushError("Invalid noise filter type");
-                return;
-        }
+        NoiseFilter = NoiseFilterFactory.CreateNoiseFilter2D(Settings);
 
         // Create the plane mesh
         ArrayMesh arrayMesh = new ArrayMesh();
