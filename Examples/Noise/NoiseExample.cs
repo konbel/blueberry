@@ -5,11 +5,16 @@ using Blueberry.Noise;
 public partial class NoiseExample : Node3D {
     [Export] private int Resolution = 10;
     [Export] private Vector2 Size = new Vector2(10, 10);
+    [Export] private NoiseSettings2D Settings;
 
     [ExportToolButton("Create Mesh with Noise")] private Callable CreateMeshButton => Callable.From(CreatePlaneMesh);
 
     private MeshInstance3D MeshInstance;
-    private SimpleNoiseFilter2D NoiseFilter;
+    private NoiseFilter2D NoiseFilter;
+
+    public override void _Ready() {
+        CreatePlaneMesh();
+    }
 
     private void CreatePlaneMesh() {
         // Create mesh instance if it doesn't exist
@@ -19,9 +24,18 @@ public partial class NoiseExample : Node3D {
         }
 
         // Create noise instance if it doesn't exist
-        if (NoiseFilter == null) {
-            NoiseSettings2D noiseSettings = new NoiseSettings2D();
-            NoiseFilter = new SimpleNoiseFilter2D(noiseSettings);
+        switch (Settings.Type) {
+            case NoiseSettings.FilterType.Simple:
+                NoiseFilter = new SimpleNoiseFilter2D(Settings);
+                break;
+
+            case NoiseSettings.FilterType.Rigid:
+                NoiseFilter = new RigidNoiseFilter2D(Settings);
+                break;
+
+            default:
+                GD.PushError("Invalid noise filter type");
+                return;
         }
 
         // Create the plane mesh
