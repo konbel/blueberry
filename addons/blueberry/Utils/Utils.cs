@@ -2,6 +2,9 @@ using Godot;
 
 namespace Blueberry {
     public static class Utils {
+        internal static Color GizmoColor = new Color(1, 0.5f, 0);
+        internal static Color TransparentGizmoColor = new Color(1, 0.5f, 0, 0.7f);
+
         /// <summary>
         /// Validates that an input action exists in the project's InputMap.
         /// Logs an error if the action is not found.

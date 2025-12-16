@@ -8,6 +8,8 @@ namespace Blueberry.Camera {
     /// </summary>
     [GlobalClass]
     public partial class FreeCamera3D : BaseCamera3D {
+        #region Fields
+
         [ExportGroup("Movement Settings")]
         /// <summary>
         /// Input action for moving forward in the camera's local -Z direction.
@@ -76,18 +78,19 @@ namespace Blueberry.Camera {
         [Export] public float ControllerSensitivity { get; set; } = 3.0f;
 
         /// <summary>
-        /// Maximum upward pitch angle in degrees. Prevents camera from flipping over.
+        /// Maximum pitch angle in degrees. Prevents camera from flipping over.
         /// </summary>
         [Export] public float UpperCap { get; set; } = 90f;
 
         /// <summary>
-        /// Maximum downward pitch angle in degrees. Prevents camera from flipping over.
+        /// Minimum pitch angle in degrees. Prevents camera from flipping over.
         /// </summary>
         [Export] public float LowerCap { get; set; } = -90f;
 
         private float _yaw = 0f;
         private float _pitch = 0f;
-        private bool _current = false;
+
+        #endregion
 
         public override void _Ready() {
             ValidateInputAction("FreeCamera3D", Forward, nameof(Forward));
