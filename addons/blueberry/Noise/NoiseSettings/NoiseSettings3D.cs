@@ -10,6 +10,6 @@ namespace Blueberry.Noise {
         /// <summary>
         /// Center offset applied to 3D sampling positions.
         /// </summary>
-        [Export] public Vector3 Center;
+        [Export] public Vector3 Center { get; set; }
     }
 }

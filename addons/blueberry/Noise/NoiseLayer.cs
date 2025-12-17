@@ -10,16 +10,16 @@ namespace Blueberry.Noise {
         /// <summary>
         /// Whether this noise layer is active and should be applied.
         /// </summary>
-        [Export] public bool Enabled = true;
+        [Export] public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// When true, uses the first layer as a mask to modulate this layer's contribution.
         /// </summary>
-        [Export] public bool UseFirstLayerAsMask = false;
+        [Export] public bool UseFirstLayerAsMask { get; set; }
 
         /// <summary>
         /// The noise settings that define how this layer's noise is generated.
         /// </summary>
-        [Export] public NoiseSettings3D NoiseSettings;
+        [Export] public NoiseSettings3D NoiseSettings { get; set; }
     }
 }

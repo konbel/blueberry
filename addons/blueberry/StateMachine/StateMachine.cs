@@ -38,7 +38,7 @@ namespace Blueberry {
         public readonly List<State> States = new List<State>();
 
         private bool _isPaused;
-        private bool IsInitialized;
+        private bool _isInitialized;
 
         public override void _Ready() {
             States.Capacity = GetChildCount();
@@ -169,11 +169,11 @@ namespace Blueberry {
                 return false;
             }
 
-            if (!IsPaused || IsInitialized) {
+            if (!IsPaused || _isInitialized) {
                 PreviousState = CurrentState;
             }
             CurrentState = newState;
-            IsInitialized = false;
+            _isInitialized = false;
 
             if (!IsPaused) {
                 UpdateState();
@@ -185,7 +185,7 @@ namespace Blueberry {
         private void SetIsPaused(bool value) {
             _isPaused = value;
 
-            if (!IsPaused && !IsInitialized) {
+            if (!IsPaused && !_isInitialized) {
                 UpdateState();
             }
         }
@@ -193,7 +193,7 @@ namespace Blueberry {
         private void UpdateState() {
             PreviousState?.Exit(CurrentState);
             CurrentState?.Entry(PreviousState);
-            IsInitialized = true;
+            _isInitialized = true;
             EmitSignal(SignalName.StateChanged, PreviousState, CurrentState);
         }
     }

@@ -16,3 +16,71 @@ csharp_new_line_before_open_brace_lambda_expression_bodies = none
 
 # Optional: remove extra blank lines
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer = false:suggestion
+
+############################
+# Naming styles
+############################
+
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_style.camel_case.capitalization = camel_case
+dotnet_naming_style.camel_case_with_underscore.capitalization = camel_case
+dotnet_naming_style.camel_case_with_underscore.required_prefix = _
+
+############################
+# Symbol groups
+############################
+
+# Namespaces
+dotnet_naming_symbols.namespaces.applicable_kinds = namespace
+
+# Types
+dotnet_naming_symbols.types.applicable_kinds = class,struct,interface,enum,delegate
+
+# Public & protected members
+dotnet_naming_symbols.public_members.applicable_kinds = method,property,field,event
+dotnet_naming_symbols.public_members.applicable_accessibilities = public,protected,internal,protected_internal
+
+# Constants
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+
+# Private fields
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+# Locals and parameters
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = local,parameter
+
+############################
+# Naming rules
+############################
+
+# Namespaces → PascalCase
+dotnet_naming_rule.namespaces_pascal.symbols = namespaces
+dotnet_naming_rule.namespaces_pascal.style = pascal_case
+dotnet_naming_rule.namespaces_pascal.severity = warning
+
+# Types → PascalCase
+dotnet_naming_rule.types_pascal.symbols = types
+dotnet_naming_rule.types_pascal.style = pascal_case
+dotnet_naming_rule.types_pascal.severity = warning
+
+# Public/protected members → PascalCase
+dotnet_naming_rule.public_members_pascal.symbols = public_members
+dotnet_naming_rule.public_members_pascal.style = pascal_case
+dotnet_naming_rule.public_members_pascal.severity = warning
+
+# Constants → PascalCase
+dotnet_naming_rule.constants_pascal.symbols = constants
+dotnet_naming_rule.constants_pascal.style = pascal_case
+dotnet_naming_rule.constants_pascal.severity = warning
+
+# Private fields → _camelCase
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = camel_case_with_underscore
+dotnet_naming_rule.private_fields_underscore.severity = warning
+
+# Locals & parameters → camelCase
+dotnet_naming_rule.locals_and_parameters_camel.symbols = locals_and_parameters
+dotnet_naming_rule.locals_and_parameters_camel.style = camel_case
+dotnet_naming_rule.locals_and_parameters_camel.severity = warning

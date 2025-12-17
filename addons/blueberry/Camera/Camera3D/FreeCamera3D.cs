@@ -87,8 +87,8 @@ namespace Blueberry.Camera {
         /// </summary>
         [Export] public float LowerCap { get; set; } = -90f;
 
-        private float _yaw = 0f;
-        private float _pitch = 0f;
+        private float _yaw;
+        private float _pitch;
 
         #endregion
 

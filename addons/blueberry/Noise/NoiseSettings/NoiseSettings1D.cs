@@ -10,6 +10,6 @@ namespace Blueberry.Noise {
         /// <summary>
         /// Offset applied to the 1D sampling position.
         /// </summary>
-        [Export] public float Offset;
+        [Export] public float Offset { get; set; }
     }
 }

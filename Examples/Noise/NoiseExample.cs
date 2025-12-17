@@ -1,15 +1,16 @@
-using Godot; using Blueberry.Noise;
+using Godot;
+using Blueberry.Noise;
 
 [Tool]
 public partial class NoiseExample : Node3D {
-    [Export] private int Resolution = 10;
-    [Export] private Vector2 Size = new Vector2(10, 10);
-    [Export] private NoiseSettings2D Settings;
+    [Export] public int Resolution { get; set; } = 10;
+    [Export] public Vector2 Size { get; set; } = new Vector2(10, 10);
+    [Export] public NoiseSettings2D Settings { get; set; }
 
     [ExportToolButton("Create Mesh with Noise")] private Callable CreateMeshButton => Callable.From(CreatePlaneMesh);
 
-    private MeshInstance3D MeshInstance;
-    private NoiseFilter2D NoiseFilter;
+    private MeshInstance3D _meshInstance;
+    private NoiseFilter2D _noiseFilter;
 
     public override void _Ready() {
         CreatePlaneMesh();
@@ -17,13 +18,13 @@ public partial class NoiseExample : Node3D {
 
     private void CreatePlaneMesh() {
         // Create mesh instance if it doesn't exist
-        if (MeshInstance == null) {
-            MeshInstance = new MeshInstance3D();
-            AddChild(MeshInstance);
+        if (_meshInstance == null) {
+            _meshInstance = new MeshInstance3D();
+            AddChild(_meshInstance);
         }
 
         // Create noise instance if it doesn't exist
-        NoiseFilter = NoiseFilterFactory.CreateNoiseFilter2D(Settings);
+        _noiseFilter = NoiseFilterFactory.CreateNoiseFilter2D(Settings);
 
         // Create the plane mesh
         ArrayMesh arrayMesh = new ArrayMesh();
@@ -49,7 +50,7 @@ public partial class NoiseExample : Node3D {
                 // Position centered at origin
                 vertices[index] = new Vector3(
                     worldX,
-                    NoiseFilter.GetNoise(worldX, worldY),
+                    _noiseFilter.GetNoise(worldX, worldY),
                     worldY
                 );
 
@@ -94,6 +95,6 @@ public partial class NoiseExample : Node3D {
         arrayMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
 
         // Assign mesh to instance
-        MeshInstance.Mesh = arrayMesh;
+        _meshInstance.Mesh = arrayMesh;
     }
 }

@@ -71,7 +71,7 @@ namespace Blueberry.Camera {
         /// <summary>
         /// Whether to constrain the pitch angle within MinPitch and MaxPitch bounds.
         /// </summary>
-        [Export] public bool LimitPitch { get; set; } = false;
+        [Export] public bool LimitPitch { get; set; }
 
         /// <summary>
         /// Maximum pitch angle in degrees. Prevents camera from flipping over.
@@ -87,7 +87,7 @@ namespace Blueberry.Camera {
         /// <summary>
         /// Whether to constrain the yaw angle within MinYaw and MaxYaw bounds.
         /// </summary>
-        [Export] public bool LimitYaw { get; set; } = false;
+        [Export] public bool LimitYaw { get; set; }
 
         /// <summary>
         /// Maximum yaw angle in degrees.

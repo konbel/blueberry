@@ -4,8 +4,8 @@ using Blueberry;
 using System.Collections.Generic;
 
 public partial class StateMachineExample : Node {
-    private StateMachine StateMachine;
-    private List<string> Log = new List<string>();
+    private StateMachine _stateMachine;
+    private List<string> _log = new List<string>();
 
     public override void _Ready() {
         // Run all test cases
@@ -21,36 +21,36 @@ public partial class StateMachineExample : Node {
 
     private void TestInitialStateEntry() {
         GD.Print("\n=== Test: Initial State Entry ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
+        _stateMachine = new StateMachine();
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
         AssertLog(new[] { "State1.Entry(null)" }, "Initial state should have Entry called");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void TestBasicStateSwitching() {
         GD.Print("\n=== Test: Basic State Switching ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
+        _stateMachine = new StateMachine();
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
-        StateMachine.SwitchState(1);
+        _stateMachine.SwitchState(1);
 
         AssertLog(new[] {
             "State1.Entry(null)",
@@ -58,142 +58,142 @@ public partial class StateMachineExample : Node {
             "State2.Entry(State1)"
         }, "State switch should call Exit then Entry");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void TestStartPausedSwitchUnpause() {
         GD.Print("\n=== Test: Start Paused, Switch While Paused, Unpause ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
-        StateMachine.IsPaused = true;
+        _stateMachine = new StateMachine();
+        _stateMachine.IsPaused = true;
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
         AssertLog(new string[] { }, "No Entry should be called when starting paused");
 
-        Log.Clear();
-        StateMachine.SwitchState(1);
+        _log.Clear();
+        _stateMachine.SwitchState(1);
 
         AssertLog(new string[] { }, "No Entry/Exit while paused");
 
-        Log.Clear();
-        StateMachine.IsPaused = false;
+        _log.Clear();
+        _stateMachine.IsPaused = false;
 
         AssertLog(new[] {
             "State2.Entry(null)"
         }, "On unpause, only Entry on current state (State1 never entered, so no Exit)");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void TestMultipleSwitchesWhilePaused() {
         GD.Print("\n=== Test: Multiple Switches While Paused ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
+        _stateMachine = new StateMachine();
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        var state3 = new TestState("State3", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
-        StateMachine.AddChild(state3);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        var state3 = new TestState("State3", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
+        _stateMachine.AddChild(state3);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
-        Log.Clear();
-        StateMachine.IsPaused = true;
-        StateMachine.SwitchState(1); // State1 -> State2 (paused)
-        StateMachine.SwitchState(2); // State2 -> State3 (paused)
+        _log.Clear();
+        _stateMachine.IsPaused = true;
+        _stateMachine.SwitchState(1); // State1 -> State2 (paused)
+        _stateMachine.SwitchState(2); // State2 -> State3 (paused)
 
         AssertLog(new string[] { }, "No Entry/Exit while paused");
-        Assert(StateMachine.CurrentState.Name == "State3", "CurrentState should be State3");
-        Assert(StateMachine.PreviousState.Name == "State1", "PreviousState should still be State1");
+        Assert(_stateMachine.CurrentState.Name == "State3", "CurrentState should be State3");
+        Assert(_stateMachine.PreviousState.Name == "State1", "PreviousState should still be State1");
 
-        Log.Clear();
-        StateMachine.IsPaused = false;
+        _log.Clear();
+        _stateMachine.IsPaused = false;
 
         AssertLog(new[] {
             "State1.Exit(State3)",
             "State3.Entry(State1)"
         }, "On unpause, Exit from last entered state, Entry to current state");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void TestSwitchPauseSwitchUnpause() {
         GD.Print("\n=== Test: Switch, Pause, Switch, Unpause ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
+        _stateMachine = new StateMachine();
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        var state3 = new TestState("State3", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
-        StateMachine.AddChild(state3);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        var state3 = new TestState("State3", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
+        _stateMachine.AddChild(state3);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
-        Log.Clear();
-        StateMachine.SwitchState(1); // State1 -> State2 (not paused)
+        _log.Clear();
+        _stateMachine.SwitchState(1); // State1 -> State2 (not paused)
 
         AssertLog(new[] {
             "State1.Exit(State2)",
             "State2.Entry(State1)"
         }, "Normal switch should work");
 
-        Log.Clear();
-        StateMachine.IsPaused = true;
-        StateMachine.SwitchState(2); // State2 -> State3 (paused)
+        _log.Clear();
+        _stateMachine.IsPaused = true;
+        _stateMachine.SwitchState(2); // State2 -> State3 (paused)
 
         AssertLog(new string[] { }, "No Entry/Exit while paused");
 
-        Log.Clear();
-        StateMachine.IsPaused = false;
+        _log.Clear();
+        _stateMachine.IsPaused = false;
 
         AssertLog(new[] {
             "State2.Exit(State3)",
             "State3.Entry(State2)"
         }, "On unpause, Exit from State2, Entry to State3");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void TestPauseUnpauseWithoutSwitch() {
         GD.Print("\n=== Test: Pause and Unpause Without Switching ===");
-        Log.Clear();
+        _log.Clear();
 
-        StateMachine = new StateMachine();
+        _stateMachine = new StateMachine();
 
-        var state1 = new TestState("State1", Log);
-        var state2 = new TestState("State2", Log);
-        StateMachine.AddChild(state1);
-        StateMachine.AddChild(state2);
+        var state1 = new TestState("State1", _log);
+        var state2 = new TestState("State2", _log);
+        _stateMachine.AddChild(state1);
+        _stateMachine.AddChild(state2);
 
-        AddChild(StateMachine);
+        AddChild(_stateMachine);
 
-        Log.Clear();
-        StateMachine.IsPaused = true;
-        StateMachine.IsPaused = false;
+        _log.Clear();
+        _stateMachine.IsPaused = true;
+        _stateMachine.IsPaused = false;
 
         AssertLog(new string[] { }, "Pause/Unpause without switching should not trigger Entry/Exit");
 
-        StateMachine.QueueFree();
+        _stateMachine.QueueFree();
     }
 
     private void AssertLog(string[] expected, string message) {
-        bool match = Log.Count == expected.Length;
+        bool match = _log.Count == expected.Length;
         if (match) {
             for (int i = 0; i < expected.Length; i++) {
-                if (Log[i] != expected[i]) {
+                if (_log[i] != expected[i]) {
                     match = false;
                     break;
                 }
@@ -203,7 +203,7 @@ public partial class StateMachineExample : Node {
         if (!match) {
             GD.PrintErr($"FAILED: {message}");
             GD.PrintErr($"  Expected: [{string.Join(", ", expected)}]");
-            GD.PrintErr($"  Got:      [{string.Join(", ", Log)}]");
+            GD.PrintErr($"  Got:      [{string.Join(", ", _log)}]");
         } else {
             GD.Print($"✓ PASSED: {message}");
         }
@@ -219,22 +219,22 @@ public partial class StateMachineExample : Node {
 }
 
 public partial class TestState : State {
-    private string StateName;
-    private List<string> Log;
+    private string _stateName;
+    private List<string> _log;
 
     public TestState(string name, List<string> logRef) {
         Name = name;
-        StateName = name;
-        Log = logRef;
+        _stateName = name;
+        _log = logRef;
     }
 
     public override void Entry(State previousState) {
         string prevName = previousState?.Name ?? "null";
-        Log.Add($"{StateName}.Entry({prevName})");
+        _log.Add($"{_stateName}.Entry({prevName})");
     }
 
     public override void Exit(State nextState) {
         string nextName = nextState?.Name ?? "null";
-        Log.Add($"{StateName}.Exit({nextName})");
+        _log.Add($"{_stateName}.Exit({nextName})");
     }
 }

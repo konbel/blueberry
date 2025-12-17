@@ -24,42 +24,42 @@ namespace Blueberry.Noise {
         /// <summary>
         /// The filter algorithm type to apply when generating noise.
         /// </summary>
-        [Export] public FilterType Type;
+        [Export] public FilterType Type { get; set; }
 
         /// <summary>
         /// Multiplier for the final noise output. Higher values produce more pronounced effects.
         /// </summary>
-        [Export] public float Strength = 1;
+        [Export] public float Strength { get; set; } = 1;
 
         /// <summary>
         /// Number of noise octaves (layers) to combine. More layers add finer detail.
         /// </summary>
-        [Export(PropertyHint.Range, "1,8")] public int NumLayers = 1;
+        [Export(PropertyHint.Range, "1,8")] public int NumLayers { get; set; } = 1;
 
         /// <summary>
         /// Initial frequency scale for the first octave. Affects the base size of noise features.
         /// </summary>
-        [Export] public float BaseRoughness = 1;
+        [Export] public float BaseRoughness { get; set; } = 1;
 
         /// <summary>
         /// Frequency multiplier applied to each successive octave. Higher values add finer details.
         /// </summary>
-        [Export] public float Roughness = 2;
+        [Export] public float Roughness { get; set; } = 2;
 
         /// <summary>
         /// Amplitude multiplier for each successive octave. Controls how much each layer contributes.
         /// </summary>
-        [Export] public float Persistence = 0.5f;
+        [Export] public float Persistence { get; set; } = 0.5f;
 
         /// <summary>
         /// Minimum threshold value. Noise values below this are clamped to zero.
         /// </summary>
-        [Export] public float MinValue = 0;
+        [Export] public float MinValue { get; set; }
 
         [ExportGroup("Rigid Noise Settings")]
         /// <summary>
         /// Weight multiplier for rigid noise filters. Controls the intensity of ridged features.
         /// </summary>
-        [Export] public float WeightMultiplier = 0.8f;
+        [Export] public float WeightMultiplier { get; set; } = 0.8f;
     }
 }
